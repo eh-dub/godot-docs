@@ -26,7 +26,8 @@ character.
    # The downward acceleration when in the air, in meters per second squared.
    @export var fall_acceleration = 75
 
-   var velocity = Vector3.ZERO
+   func _ready()
+       velocity = Vector3.ZERO
 
  .. code-tab:: csharp
 
@@ -46,8 +47,7 @@ character.
 
 
 These are common properties for a moving body. The ``velocity`` is a 3D vector
-combining a speed with a direction. Here, we define it as a property because
-we want to update and reuse its value across frames.
+combining a speed with a direction. It is already a property of a CharacterBody3D so here, we initialize it to zero when the player is ready.
 
 .. note::
 
@@ -135,7 +135,7 @@ call its ``normalize()`` method.
 
        if direction != Vector3.ZERO:
            direction = direction.normalized()
-           $Pivot.look_at(translation + direction, Vector3.UP)
+           $Pivot.look_at(position + direction, Vector3.UP)
 
  .. code-tab:: csharp
 
@@ -159,7 +159,7 @@ up direction. In this case, we can use the ``Vector3.UP`` constant.
 
 .. note::
 
-    A node's local coordinates, like ``translation``, are relative to their
+    A node's local coordinates, like ``position``, are relative to their
     parent. Global coordinates are relative to the world's main axes you can see
     in the viewport instead.
 
@@ -185,7 +185,7 @@ fall speed separately. Be sure to go back one tab so the lines are inside the
         # Vertical velocity
         velocity.y -= fall_acceleration * delta
         # Moving the character
-        velocity = move_and_slide(velocity, Vector3.UP)
+        move_and_slide()
 
  .. code-tab:: csharp
 
@@ -240,7 +240,8 @@ Here is the complete ``Player.gd`` code for reference.
    # The downward acceleration when in the air, in meters per second squared.
    @export var fall_acceleration = 75
 
-   var velocity = Vector3.ZERO
+   func _ready():
+       velocity = Vector3.ZERO
 
 
    func _physics_process(delta):
@@ -257,12 +258,12 @@ Here is the complete ``Player.gd`` code for reference.
 
        if direction != Vector3.ZERO:
            direction = direction.normalized()
-           $Pivot.look_at(translation + direction, Vector3.UP)
+           $Pivot.look_at(position + direction, Vector3.UP)
 
        velocity.x = direction.x * speed
        velocity.z = direction.z * speed
        velocity.y -= fall_acceleration * delta
-       velocity = move_and_slide(velocity, Vector3.UP)
+       move_and_slide()
 
  .. code-tab:: csharp
 
