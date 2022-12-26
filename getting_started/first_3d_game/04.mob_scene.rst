@@ -149,7 +149,7 @@ The function will take a ``start_position``, the mob's spawn position, and the
 
 We position the mob at ``start_position`` and turn it towards the player using
 the ``look_at_from_position()`` method, and randomize the angle by rotating a
-random amount around the Y axis. Below, ``rand_range()`` outputs a random value
+random amount around the Y axis. Below, ``randf_range()`` outputs a random value
 between ``-PI / 4`` radians and ``PI / 4`` radians.
 
 .. tabs::
@@ -160,7 +160,7 @@ between ``-PI / 4`` radians and ``PI / 4`` radians.
        # We position the mob and turn it so that it looks at the player.
        look_at_from_position(start_position, player_position, Vector3.UP)
        # And rotate it randomly so it doesn't move exactly toward the player.
-       rotate_y(rand_range(-PI / 4, PI / 4))
+       rotate_y(randf_range(-PI / 4, PI / 4))
 
  .. code-tab:: csharp
 
